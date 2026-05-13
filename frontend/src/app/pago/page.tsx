@@ -4,18 +4,19 @@ import { useState } from "react";
 import { useAccount, useWriteContract } from "wagmi";
 import { parseEther } from "viem";
 
+// ABI corregida (sin errores de tipeo)
 const contractABI = [
   {
-    "inputs": [
-      { "internalType": "string", "name": "name", "type": "string" },
-      { "internalType": "string", "name": "symbol", "type": "string" },
-      { "internalType": "uint256", "name": "totalSupply", "type": "uint256" }
+    inputs: [
+      { internalType: "string", name: "name", type: "string" },
+      { internalType: "string", name: "symbol", type: "string" },
+      { internalType: "uint256", name: "totalSupply", type: "uint256" },
     ],
-    "name": "createToken",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "stateMutability": "payable",
-    "type": "function"
-  }
+    name: "createToken",
+    outputs: [{ internalType: "address", name: "", type: "address" }],
+    stateMutability: "payable",
+    type: "function",
+  },
 ] as const;
 
 const CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS || "0x...";
@@ -29,17 +30,31 @@ export default function PagoPage() {
 
   const handleCreateToken = () => {
     if (!name || !symbol || !supply) return;
+
+    // Convertir supply a BigInt correctamente
+    let supplyBigInt: bigint;
+    try {
+      supplyBigInt = BigInt(supply);
+    } catch {
+      alert("El suministro debe ser un número entero válido.");
+      return;
+    }
+
     writeContract({
-      address: CONTRACT_ADDRESS,
+      address: CONTRACT_ADDRESS as `0x${string}`,
       abi: contractABI,
       functionName: "createToken",
-      args: [name, symbol, BigInt(supply)],
+      args: [name, symbol, supplyBigInt],
       value: parseEther("0.001"),
     });
   };
 
   if (!isConnected) {
-    return <div className="text-center text-gray-400">Conecta tu wallet para continuar.</div>;
+    return (
+      <div className="text-center text-gray-400">
+        Conecta tu wallet para continuar.
+      </div>
+    );
   }
 
   return (
@@ -48,15 +63,28 @@ export default function PagoPage() {
       <div className="bg-gray-800 p-4 rounded space-y-4">
         <div>
           <label className="block mb-1">Nombre del token</label>
-          <input className="bg-gray-700 p-2 rounded w-full" value={name} onChange={(e) => setName(e.target.value)} />
+          <input
+            className="bg-gray-700 p-2 rounded w-full"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
         </div>
         <div>
           <label className="block mb-1">Símbolo</label>
-          <input className="bg-gray-700 p-2 rounded w-full" value={symbol} onChange={(e) => setSymbol(e.target.value)} />
+          <input
+            className="bg-gray-700 p-2 rounded w-full"
+            value={symbol}
+            onChange={(e) => setSymbol(e.target.value)}
+          />
         </div>
         <div>
           <label className="block mb-1">Suministro total</label>
-          <input className="bg-gray-700 p-2 rounded w-full" value={supply} onChange={(e) => setSupply(e.target.value)} />
+          <input
+            className="bg-gray-700 p-2 rounded w-full"
+            value={supply}
+            onChange={(e) => setSupply(e.target.value)}
+            placeholder="1000000"
+          />
         </div>
         <button
           onClick={handleCreateToken}
