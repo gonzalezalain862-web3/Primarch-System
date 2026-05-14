@@ -1,86 +1,77 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract MemecoinLaunchpad is Ownable {
-    uint256 public feePercent = 1; // 1%
+    constructor() Ownable(msg.sender) {}
+    uint256 public feePercent = 1;
     uint256 public treasuryFee;
     uint256 public totalRaised;
 
-    struct TokenSale {
-        address token;
-        string symbol;
+    struct Launch {
+        IERC20 token;
         address creator;
         uint256 supply;
-        uint256 price; // en wei
+        uint256 price;
         bool active;
     }
 
-    TokenSale[] public sales;
+    Launch[] public launches;
 
-    event TokenCreated(uint256 indexed id, address indexed token, string symbol, address creator);
+    event LaunchCreated(uint256 indexed id, address indexed token, address creator);
     event TokensBought(uint256 indexed id, address buyer, uint256 amount, uint256 cost);
 
-    constructor() Ownable(msg.sender) {}
-
-    function createToken(
-        string memory name,
-        string memory symbol,
-        uint256 initialSupply,
+    function createLaunch(
+        address tokenAddress,
+        uint256 supply,
         uint256 pricePerToken
-    ) external payable {
+    ) external onlyOwner {
         require(pricePerToken > 0, "Price must be > 0");
-        // Crear el token ERC20
-        MyToken newToken = new MyToken(name, symbol, initialSupply);
-        newToken.transferFrom(msg.sender, address(this), initialSupply);
-        
-        sales.push(TokenSale({
-            token: address(newToken),
-            symbol: symbol,
+        IERC20 token = IERC20(tokenAddress);
+        require(token.balanceOf(msg.sender) >= supply, "Insufficient balance");
+        require(token.allowance(msg.sender, address(this)) >= supply, "Allowance too low");
+
+        token.transferFrom(msg.sender, address(this), supply);
+
+        launches.push(Launch({
+            token: token,
             creator: msg.sender,
-            supply: initialSupply,
+            supply: supply,
             price: pricePerToken,
             active: true
         }));
-        
-        emit TokenCreated(sales.length - 1, address(newToken), symbol, msg.sender);
+
+        emit LaunchCreated(launches.length - 1, tokenAddress, msg.sender);
     }
 
-    function buyTokens(uint256 saleId) external payable {
-        TokenSale storage sale = sales[saleId];
-        require(sale.active, "Sale not active");
-        uint256 amount = msg.value / sale.price;
-        require(amount > 0 && amount <= sale.supply, "Invalid amount");
-        
+    function buyTokens(uint256 launchId) external payable {
+        Launch storage launch = launches[launchId];
+        require(launch.active, "Launch not active");
+        require(msg.value > 0, "Send ETH to buy");
+
+        uint256 amount = msg.value / launch.price;
+        require(amount > 0 && amount <= launch.supply, "Invalid amount");
+
         uint256 fee = msg.value * feePercent / 100;
-        treasuryFee += fee;
         uint256 netAmount = msg.value - fee;
-        
-        sale.supply -= amount;
+
+        treasuryFee += fee;
         totalRaised += netAmount;
-        
-        // Transferir tokens al comprador
-        IERC20(sale.token).transfer(msg.sender, amount);
-        // Enviar ETH al creador
-        payable(sale.creator).transfer(netAmount);
-        
-        emit TokensBought(saleId, msg.sender, amount, msg.value);
+
+        launch.supply -= amount;
+        if (launch.supply == 0) {
+            launch.active = false;
+        }
+
+        launch.token.transfer(msg.sender, amount);
+        payable(launch.creator).transfer(netAmount);
+        emit TokensBought(launchId, msg.sender, amount, msg.value);
     }
 
-    function withdrawFees() external onlyOwner {
+    function withdrawTreasury() external onlyOwner {
         payable(owner()).transfer(treasuryFee);
         treasuryFee = 0;
     }
-}
-
-contract MyToken is ERC20 {
-    constructor(string memory name, string memory symbol, uint256 initialSupply) ERC20(name, symbol) {
-        _mint(msg.sender, initialSupply * 10**decimals());
-    }
-}
-
-interface IERC20 {
-    function transfer(address to, uint256 amount) external returns (bool);
 }
