@@ -1,11 +1,11 @@
 "use client";
 
-import { useAccount, useConnect, useDisconnect } from "wagmi";
+// // import { useAccount, useConnect, useDisconnect } from "wagmi";
 
 export default function RegistroPage() {
-  const { address, isConnected } = useAccount();
-  const { connect, connectors } = useConnect();
-  const { disconnect } = useDisconnect();
+//   const { address, isConnected } = useAccount();
+//   const { connect, connectors } = useConnect();
+//   const { disconnect } = useDisconnect();
 
   return (
     <div className="max-w-md mx-auto">

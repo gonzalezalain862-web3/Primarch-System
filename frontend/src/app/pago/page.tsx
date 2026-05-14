@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useAccount, useWriteContract } from "wagmi";
+// import { useAccount, useWriteContract } from "wagmi";
 import { parseEther } from "viem";
 
 // ABI corregida (sin errores de tipeo)
@@ -22,7 +22,7 @@ const contractABI = [
 const CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS || "0x...";
 
 export default function PagoPage() {
-  const { isConnected } = useAccount();
+//   const { isConnected } = useAccount();
   const { writeContract } = useWriteContract();
   const [name, setName] = useState("");
   const [symbol, setSymbol] = useState("");

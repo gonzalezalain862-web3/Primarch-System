@@ -3,13 +3,13 @@
 import { useState } from "react";
 import Link from "next/link";
 import { FaBars, FaTimes, FaHome, FaUserPlus, FaCog, FaCoins } from "react-icons/fa";
-import { useAccount, useConnect, useDisconnect } from "wagmi";
+// // import { useAccount, useConnect, useDisconnect } from "wagmi";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { address, isConnected } = useAccount();
-  const { connect, connectors } = useConnect();
-  const { disconnect } = useDisconnect();
+//   const { address, isConnected } = useAccount();
+//   const { connect, connectors } = useConnect();
+//   const { disconnect } = useDisconnect();
 
   return (
     <nav className="bg-[#0a0a0f] border-b border-purple-900/30 text-white shadow-lg">
