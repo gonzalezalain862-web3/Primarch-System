@@ -1,18 +1,24 @@
-'use client';
-import { useState } from 'react';
+"use client";
+import { useState } from "react";
 
-export default function ConfigPage() {
-  const [idioma, setIdioma] = useState('es');
+export default function ConfiguracionPage() {
+  const [idioma, setIdioma] = useState("es");
   return (
-    <div>
-      <h1 className="text-3xl font-bold mb-6">Configuración</h1>
-      <div className="mb-4">
-        <label className="block mb-2">Idioma</label>
-        <select value={idioma} onChange={e => setIdioma(e.target.value)} className="p-2 bg-gray-800 rounded">
+    <div className="space-y-6 text-center">
+      <h2 className="text-3xl font-bold">Configuración</h2>
+      <div className="max-w-xs mx-auto">
+        <label className="block mb-2">Selecciona idioma</label>
+        <select
+          value={idioma}
+          onChange={(e) => setIdioma(e.target.value)}
+          className="w-full p-3 rounded bg-black/30 border border-white/20 text-white"
+        >
           <option value="es">Español</option>
           <option value="en">English</option>
         </select>
-        <p className="mt-2">Idioma seleccionado: {idioma === 'es' ? 'Español' : 'English'}</p>
+        <p className="mt-4 text-gray-300">
+          {idioma === "es" ? "Idioma actual: Español" : "Current language: English"}
+        </p>
       </div>
     </div>
   );

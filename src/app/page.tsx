@@ -1,49 +1,42 @@
-'use client';
-import { useState, useEffect } from 'react';
+"use client";
+import { ConnectButton } from "thirdweb/react";
+import { client } from "@/lib/client";
+import { getContract } from "thirdweb";
+import { sepolia } from "thirdweb/chains";
+import { useReadContract } from "thirdweb/react";
 
-export default function HomePage() {
-  const [account, setAccount] = useState('');
-  const [connected, setConnected] = useState(false);
+const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS!;
+const contract = getContract({
+  client,
+  chain: sepolia,
+  address: contractAddress,
+});
 
-  const connect = async () => {
-    if (typeof window.ethereum !== 'undefined') {
-      try {
-        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        setAccount(accounts[0]);
-        setConnected(true);
-      } catch (err) {
-        alert('Error al conectar');
-      }
-    } else {
-      alert('Instala MetaMask');
-    }
-  };
-
-  const disconnect = () => {
-    setAccount('');
-    setConnected(false);
-  };
-
-  useEffect(() => {
-    if (typeof window.ethereum !== 'undefined' && connected) {
-      window.ethereum.on('accountsChanged', (acc) => {
-        if (acc.length === 0) disconnect();
-        else setAccount(acc[0]);
-      });
-    }
-  }, [connected]);
+export default function Home() {
+  const { data: feePercent, isLoading: feeLoading } = useReadContract({
+    contract,
+    method: "feePercent",
+  });
+  const { data: totalRaised, isLoading: totalLoading } = useReadContract({
+    contract,
+    method: "totalRaised",
+  });
 
   return (
-    <div className="text-center">
-      <h1 className="text-4xl font-bold mb-6">Bienvenido a Primarch System</h1>
-      {!connected ? (
-        <button onClick={connect} className="bg-blue-600 px-6 py-3 rounded-lg text-lg">Conectar MetaMask</button>
-      ) : (
-        <div className="bg-green-800 inline-block p-4 rounded-lg">
-          <p>✅ Conectado: {account.slice(0,6)}...{account.slice(-4)}</p>
-          <button onClick={disconnect} className="bg-red-600 px-4 py-2 rounded mt-2">Desconectar</button>
-        </div>
-      )}
+    <div className="text-center space-y-6">
+      <div className="flex justify-center">
+        <ConnectButton client={client} />
+      </div>
+      <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+        MULTI-CHANNEL ACCURACY
+      </h1>
+      <p className="text-gray-300 text-lg">
+        Unified tracking for Google and TikTok leads. Zero data entry errors.
+      </p>
+      <div className="pt-4 text-sm text-gray-400">
+        {!feeLoading && feePercent !== undefined && <p>Comisión actual: {feePercent.toString()}%</p>}
+        {!totalLoading && totalRaised !== undefined && <p>Total recaudado: {totalRaised.toString()} Wei</p>}
+      </div>
     </div>
   );
 }
