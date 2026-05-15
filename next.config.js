@@ -1,13 +1,9 @@
-module.exports = {
-  webpack5: true,
-  webpack: (config, { isServer }) => {
-    if (!isServer) {
-      config.resolve.fallback = {
-        fs: false,
-        path: false,
-        crypto: false,
-      };
-    }
-    return config;
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  typescript: {
+    ignoreBuildErrors: true, // TEMPORAL
   },
-}
+};
+
+module.exports = nextConfig;

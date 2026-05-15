@@ -1,13 +1,9 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
-// import { Providers } from "./providers";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Primarch System",
-  description: "Crea y comercia memecoins fácilmente",
+  description: "Tu DApp en Sepolia - Conecta tu wallet",
 };
 
 export default function RootLayout({
@@ -17,11 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
-      <body className={`${inter.className} bg-[#06060e] text-white`}>
-        <Providers>
-          <main className="container mx-auto px-4 py-8">{children}</main>
-        </Providers>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
