@@ -1,24 +1,18 @@
-"use client";
+'use client';
+import { useState } from 'react';
 
-import { useTranslation } from "react-i18next";
-import "../../i18n";
-
-export default function ConfiguracionPage() {
-  const { t, i18n } = useTranslation();
-
+export default function ConfigPage() {
+  const [idioma, setIdioma] = useState('es');
   return (
-    <div className="max-w-md mx-auto">
-      <h2 className="text-2xl font-bold mb-4">{t("configuration")}</h2>
-      <div className="bg-gray-800 p-4 rounded">
-        <label className="block mb-2">{t("selectLanguage")}:</label>
-        <select
-          onChange={(e) => i18n.changeLanguage(e.target.value)}
-          value={i18n.language}
-          className="bg-gray-700 text-white p-2 rounded w-full"
-        >
+    <div>
+      <h1 className="text-3xl font-bold mb-6">Configuración</h1>
+      <div className="mb-4">
+        <label className="block mb-2">Idioma</label>
+        <select value={idioma} onChange={e => setIdioma(e.target.value)} className="p-2 bg-gray-800 rounded">
           <option value="es">Español</option>
           <option value="en">English</option>
         </select>
+        <p className="mt-2">Idioma seleccionado: {idioma === 'es' ? 'Español' : 'English'}</p>
       </div>
     </div>
   );

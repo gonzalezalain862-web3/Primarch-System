@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 
-export default function Home() {
+export default function HomePage() {
   const [account, setAccount] = useState('');
   const [connected, setConnected] = useState(false);
 
@@ -35,18 +35,14 @@ export default function Home() {
   }, [connected]);
 
   return (
-    <div style={{ padding: '20px', textAlign: 'center' }}>
-      <h1>Primarch System</h1>
+    <div className="text-center">
+      <h1 className="text-4xl font-bold mb-6">Bienvenido a Primarch System</h1>
       {!connected ? (
-        <button onClick={connect} style={{ backgroundColor: 'blue', color: 'white', padding: '10px 20px', borderRadius: '5px', border: 'none', cursor: 'pointer' }}>
-          Conectar MetaMask
-        </button>
+        <button onClick={connect} className="bg-blue-600 px-6 py-3 rounded-lg text-lg">Conectar MetaMask</button>
       ) : (
-        <div>
+        <div className="bg-green-800 inline-block p-4 rounded-lg">
           <p>✅ Conectado: {account.slice(0,6)}...{account.slice(-4)}</p>
-          <button onClick={disconnect} style={{ backgroundColor: 'red', color: 'white', padding: '10px 20px', borderRadius: '5px', border: 'none', cursor: 'pointer' }}>
-            Desconectar
-          </button>
+          <button onClick={disconnect} className="bg-red-600 px-4 py-2 rounded mt-2">Desconectar</button>
         </div>
       )}
     </div>
