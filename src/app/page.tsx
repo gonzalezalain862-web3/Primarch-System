@@ -12,7 +12,6 @@ export default function HomePage() {
         setAccount(accounts[0]);
         setConnected(true);
       } catch (err) {
-        console.error(err);
         alert('Error al conectar');
       }
     } else {

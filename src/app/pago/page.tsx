@@ -12,7 +12,6 @@ export default function PagoPage() {
         setAccount(accounts[0]);
         setConnected(true);
       } catch (err) {
-        console.error(err);
         alert('Error al conectar');
       }
     } else {
@@ -33,7 +32,7 @@ export default function PagoPage() {
     <div>
       <h1 className="text-3xl font-bold mb-6">Forma de Pago</h1>
       {!connected ? (
-        <button onClick={connect} className="bg-blue-600 text-white px-4 py-2 rounded">Conectar Billetera</button>
+        <button onClick={connect} className="bg-blue-600 px-4 py-2 rounded">Conectar Billetera</button>
       ) : (
         <div className="bg-green-800 p-4 rounded">
           <p>✅ Conectado: {account.slice(0,6)}...{account.slice(-4)}</p>
