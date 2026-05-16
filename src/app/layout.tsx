@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <ThirdwebProvider>
       <html lang="es">
-        <body>
+        <body class="cyber-bg cyber-speed-lines">
           <MenuLateral />
           <main className="main-content">
             {children}

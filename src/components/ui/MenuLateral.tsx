@@ -26,10 +26,10 @@ export default function MenuLateral() {
         </svg>
       </button>
       {abierto && (
-        <div className="fixed inset-0 z-40 flex">
-          <div className="fixed inset-0 bg-black/50" onClick={() => setAbierto(false)}></div>
-          <div className="relative w-64 bg-gray-900 h-full shadow-lg p-4 text-white">
-            <button onClick={() => setAbierto(false)} className="absolute top-2 right-2 text-white text-2xl">&times;</button>
+        <div className="fixed inset-0 z-40 flex" className="cyber-data">
+          <div className="fixed inset-0 bg-black/50" onClick={() = className="cyber-data"> setAbierto(false)}></div>
+          <div className="relative w-64 bg-gray-900 h-full shadow-lg p-4 text-white" className="cyber-data">
+            <button onClick={() = className="cyber-btn"> setAbierto(false)} className="absolute top-2 right-2 text-white text-2xl">&times;</button>
             <nav className="mt-8">
               <ul className="space-y-4">
                 {enlaces.map((enlace) => (

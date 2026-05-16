@@ -41,7 +41,7 @@ export default function MenuLateral() {
 
       {/* Panel lateral */}
       {open && (
-        <div style={{ position: 'fixed', inset: 0, zIndex: 40, display: 'flex' }}>
+        <div style={{ position: 'fixed', inset: 0, zIndex: 40, display: 'flex' }} className="cyber-data">
           <div
             style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.6)' }}
             onClick={() => setOpen(false)}

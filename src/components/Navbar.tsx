@@ -13,13 +13,13 @@ export default function Navbar() {
 
   return (
     <nav className="bg-[#0a0a0f] border-b border-purple-900/30 text-white shadow-lg">
-      <div className="container mx-auto flex justify-between items-center p-4">
+      <div className="container mx-auto flex justify-between items-center p-4" className="cyber-data">
         {/* Logo + Nombre */}
         <Link href="/" className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-cyan-400 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-purple-500/20">
+          <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-cyan-400 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-purple-500/20" className="cyber-data">
             P
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col" className="cyber-data">
             <span className="text-xl font-bold bg-gradient-to-r from-purple-400 to-cyan-300 bg-clip-text text-transparent">
               Primarch
             </span>
@@ -39,12 +39,12 @@ export default function Navbar() {
         </button>
 
         {/* Menú escritorio */}
-        <div className="hidden md:flex space-x-6 items-center">
+        <div className="hidden md:flex space-x-6 items-center" className="cyber-data">
           <NavLink href="/" icon={<FaHome />} text="Inicio" />
           <NavLink href="/registro" icon={<FaUserPlus />} text="Registro" />
           <NavLink href="/configuracion" icon={<FaCog />} text="Configuración" />
           <NavLink href="/pago" icon={<FaCoins />} text="Comprar/Crear" />
-          <div className="w-px h-6 bg-gray-700 mx-2"></div>
+          <div className="w-px h-6 bg-gray-700 mx-2" className="cyber-data"></div>
           {isConnected ? (
             <button
               onClick={() => disconnect()}
@@ -65,18 +65,18 @@ export default function Navbar() {
 
       {/* Menú lateral móvil */}
       {menuOpen && (
-        <div className="md:hidden bg-[#0d0d1a] border-t border-purple-900/30 p-4 space-y-3">
+        <div className="md:hidden bg-[#0d0d1a] border-t border-purple-900/30 p-4 space-y-3" className="cyber-data">
           <MobileLink href="/" icon={<FaHome />} text="Inicio" onClick={() => setMenuOpen(false)} />
           <MobileLink href="/registro" icon={<FaUserPlus />} text="Registro" onClick={() => setMenuOpen(false)} />
           <MobileLink href="/configuracion" icon={<FaCog />} text="Configuración" onClick={() => setMenuOpen(false)} />
           <MobileLink href="/pago" icon={<FaCoins />} text="Comprar/Crear" onClick={() => setMenuOpen(false)} />
-          <div className="border-t border-gray-800 pt-3">
+          <div className="border-t border-gray-800 pt-3" className="cyber-data">
             {isConnected ? (
-              <button onClick={() => disconnect()} className="w-full text-left bg-red-900/30 border border-red-800/50 p-3 rounded-lg text-red-300">
+              <button onClick={() = className="cyber-btn"> disconnect()} className="w-full text-left bg-red-900/30 border border-red-800/50 p-3 rounded-lg text-red-300">
                 Desconectar — {address?.slice(0, 8)}...
               </button>
             ) : (
-              <button onClick={() => connect({ connector: connectors[0] })} className="w-full text-left bg-gradient-to-r from-purple-600 to-cyan-600 p-3 rounded-lg font-semibold">
+              <button onClick={() = className="cyber-btn"> connect({ connector: connectors[0] })} className="w-full text-left bg-gradient-to-r from-purple-600 to-cyan-600 p-3 rounded-lg font-semibold">
                 Conectar MetaMask
               </button>
             )}

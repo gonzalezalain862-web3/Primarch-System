@@ -1,15 +1,30 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  typescript: { ignoreBuildErrors: true },
-  eslint: { ignoreDuringBuilds: true },
-  compiler: {
-    // Remover CSS no utilizado (opcional)
-    removeConsole: false,
-  },
-  webpack: (config) => {
-    config.resolve.fallback = { fs: false, net: false, tls: false };
+  // Desactivar outputFileTracing para evitar errores en Termux
+  outputFileTracing: false,
+  
+  // Desactivar ESLint desde next.config.js (ahora se usa next lint)
+  // eslint: {},  ← ELIMINAR ESTA LÍNEA - Ya no es soportada
+  
+  // Optimizaciones para Termux/Android
+  webpack: (config, { isServer, dev }) => {
+    // Desactivar cache en desarrollo para evitar errores de snapshot
+    if (dev && !isServer) {
+      config.cache = false;
+    }
+    
+    // Ajustar snapshot para sistemas de archivos Android
+    config.snapshot = {
+      ...config.snapshot,
+      managedPaths: [],
+      immutablePaths: [],
+    };
+    
     return config;
   },
-};
-module.exports = nextConfig;
+  
+  // Desactivar telemetría
+  telemetry: false,
+}
+
+module.exports = nextConfig
