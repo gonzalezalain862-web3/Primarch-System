@@ -1,20 +1,30 @@
 :root {
-  --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 0, 0, 0;
-  --background-end-rgb: 20, 20, 40;
+  --background: #0a0a1a;
+  --foreground: #ffffff;
 }
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(135deg, rgb(var(--background-start-rgb)), rgb(var(--background-end-rgb)));
-  font-family: 'Inter', sans-serif;
   margin: 0;
   padding: 0;
+  background: linear-gradient(135deg, #000000, #141428);
+  color: white;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+.main-content {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
 }
 .glass-card {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(12px);
-  border-radius: 32px;
+  border-radius: 2rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  width: 100%;
+  max-width: 64rem;
+  text-align: center;
 }
 .btn-primary {
   background: linear-gradient(to right, #3b82f6, #8b5cf6);
@@ -22,34 +32,33 @@ body {
   font-weight: bold;
   padding: 0.75rem 1.5rem;
   border-radius: 0.75rem;
-  transition: all 0.2s;
-  cursor: pointer;
   border: none;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
 }
 .btn-primary:hover {
-  background: linear-gradient(to right, #2563eb, #7c3aed);
   transform: scale(1.05);
+  background: linear-gradient(to right, #2563eb, #7c3aed);
 }
-.btn-secondary {
-  background: #1f2937;
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  transition: background 0.2s;
-  cursor: pointer;
-}
-.btn-secondary:hover {
-  background: #374151;
-}
-input {
-  background: rgba(0,0,0,0.3);
+input, select {
+  background: rgba(0,0,0,0.5);
   border: 1px solid rgba(255,255,255,0.2);
   border-radius: 0.5rem;
   padding: 0.75rem;
   color: white;
   width: 100%;
 }
-input:focus {
+input:focus, select:focus {
   outline: none;
   border-color: #3b82f6;
+}
+h1, h2 {
+  margin-top: 0;
+}
+a {
+  color: #60a5fa;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
 }

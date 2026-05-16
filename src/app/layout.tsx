@@ -16,12 +16,10 @@ export default function RootLayout({
   return (
     <ThirdwebProvider>
       <html lang="es">
-        <body className="min-h-screen">
+        <body>
           <MenuLateral />
-          <main className="flex min-h-screen flex-col items-center justify-center p-4">
-            <div className="glass-card w-full max-w-4xl p-6 md:p-8">
-              {children}
-            </div>
+          <main className="main-content">
+            {children}
           </main>
         </body>
       </html>
