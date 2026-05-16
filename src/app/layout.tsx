@@ -1,12 +1,5 @@
-import type { Metadata } from "next";
-import { ThirdwebProvider } from "thirdweb/react";
-import MenuLateral from "@/components/MenuLateral";
+import { Web3Provider } from "@/providers/Web3Provider";
 import "./globals.css";
-
-export const metadata: Metadata = {
-  title: "Primarch System",
-  description: "MULTI-CHANNEL ACCURACY - Zero data entry errors",
-};
 
 export default function RootLayout({
   children,
@@ -14,15 +7,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ThirdwebProvider>
-      <html lang="es">
-        <body class="cyber-bg cyber-speed-lines">
-          <MenuLateral />
-          <main className="main-content">
-            {children}
-          </main>
-        </body>
-      </html>
-    </ThirdwebProvider>
+    <html lang="es">
+      <body>
+        <Web3Provider>{children}</Web3Provider>
+      </body>
+    </html>
   );
 }
