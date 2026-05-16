@@ -13,24 +13,22 @@ export default function DeFiHub() {
     { id: "analytics", icon: "📊", title: "Analytics", desc: "Métricas en tiempo real", color: "#f59e0b" },
   ];
 
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
+  const closeMenu = () => {
+    setMenuOpen(false);
+  };
+
   return (
     <div className="min-h-screen relative" style={{ background: "linear-gradient(135deg, #050810 0%, #0a1128 100%)", overflowX: "hidden" }}>
       
-      {/* 🔧 MENÚ HAMBURGUESA COMPLETO */}
-      <div style={{ 
-        position: "fixed", 
-        top: "1.5rem", 
-        right: "1.5rem", 
-        zIndex: 99999,
-        display: "flex", 
-        flexDirection: "column", 
-        alignItems: "flex-end"
-      }}>
-        
-        {/* Botón Hamburguesa */}
+      {/* MENÚ HAMBURGUESA MEJORADO */}
+      <div style={{ position: "fixed", top: "1.5rem", right: "1.5rem", zIndex: 99999 }}>
+        {/* Botón con onClick simplificado */}
         <button 
-          onClick={() => setMenuOpen(!menuOpen)}
-          onTouchStart={() => setMenuOpen(!menuOpen)} 
+          onClick={toggleMenu}
           style={{
             width: "56px", 
             height: "56px", 
@@ -44,18 +42,34 @@ export default function DeFiHub() {
             gap: "6px",
             cursor: "pointer",
             boxShadow: "0 4px 20px rgba(0, 212, 255, 0.6)",
-            position: "relative",
-            zIndex: 99999
+            zIndex: 100000,
+            position: "relative"
           }}
         >
-          <span style={{ width: "24px", height: "3px", background: "white", borderRadius: "2px" }}></span>
-          <span style={{ width: "24px", height: "3px", background: "white", borderRadius: "2px" }}></span>
-          <span style={{ width: "24px", height: "3px", background: "white", borderRadius: "2px" }}></span>
+          <span style={{ width: "24px", height: "3px", background: "white", borderRadius: "2px", transition: "0.3s" }}></span>
+          <span style={{ width: "24px", height: "3px", background: "white", borderRadius: "2px", transition: "0.3s" }}></span>
+          <span style={{ width: "24px", height: "3px", background: "white", borderRadius: "2px", transition: "0.3s" }}></span>
         </button>
 
-        {/* Menú Desplegable COMPLETO */}
+        {/* Overlay oscuro para cerrar al tocar fuera */}
+        {menuOpen && (
+          <div 
+            onClick={closeMenu}
+            style={{ 
+              position: "fixed", 
+              inset: 0, 
+              background: "rgba(0,0,0,0.6)", 
+              zIndex: 99998,
+              backdropFilter: "blur(3px)"
+            }}
+          />
+        )}
+
+        {/* Menú desplegable */}
         <div style={{
-          marginTop: "10px",
+          position: "absolute",
+          top: "65px",
+          right: "0",
           background: "rgba(10, 14, 39, 0.98)",
           backdropFilter: "blur(15px)",
           WebkitBackdropFilter: "blur(15px)",
@@ -63,41 +77,38 @@ export default function DeFiHub() {
           borderRadius: "16px", 
           padding: "12px",
           minWidth: "260px",
-          maxHeight: "80vh",
+          maxHeight: "75vh",
           overflowY: "auto",
           boxShadow: "0 10px 40px rgba(0, 0, 0, 0.8)",
           opacity: menuOpen ? "1" : "0",
           visibility: menuOpen ? "visible" : "hidden",
           transform: menuOpen ? "scale(1)" : "scale(0.95)",
           transformOrigin: "top right",
-          transition: "all 0.2s ease-in-out",
+          transition: "all 0.25s ease-out",
           pointerEvents: menuOpen ? "auto" : "none",
-          zIndex: 99998
+          zIndex: 99999
         }}>
-          {/* Sección Principal */}
           <div style={{ marginBottom: "8px", paddingBottom: "8px", borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
-            <div style={{ fontSize: "12px", color: "#00d4ff", marginBottom: "8px", fontWeight: "bold" }}>PRINCIPAL</div>
-            <Link href="/" onClick={() => setMenuOpen(false)} style={{ display: "block", padding: "10px 14px", color: "white", textDecoration: "none", borderRadius: "8px", marginBottom: "4px", background: "rgba(255, 255, 255, 0.05)", fontSize: "15px" }}>🏠 Inicio</Link>
-            <Link href="/registro" onClick={() => setMenuOpen(false)} style={{ display: "block", padding: "10px 14px", color: "white", textDecoration: "none", borderRadius: "8px", marginBottom: "4px", background: "rgba(255, 255, 255, 0.05)", fontSize: "15px" }}>📝 Registro</Link>
-            <Link href="/configuracion" onClick={() => setMenuOpen(false)} style={{ display: "block", padding: "10px 14px", color: "white", textDecoration: "none", borderRadius: "8px", marginBottom: "4px", background: "rgba(255, 255, 255, 0.05)", fontSize: "15px" }}>⚙️ Configuración</Link>
-            <Link href="/planes" onClick={() => setMenuOpen(false)} style={{ display: "block", padding: "10px 14px", color: "white", textDecoration: "none", borderRadius: "8px", marginBottom: "4px", background: "rgba(255, 255, 255, 0.05)", fontSize: "15px" }}>💎 Planes</Link>
+            <div style={{ fontSize: "11px", color: "#00d4ff", marginBottom: "8px", fontWeight: "bold", textTransform: "uppercase" }}>Principal</div>
+            <Link href="/" onClick={closeMenu} style={{ display: "block", padding: "11px 14px", color: "white", textDecoration: "none", borderRadius: "8px", marginBottom: "4px", background: "rgba(255, 255, 255, 0.05)", fontSize: "15px" }}>🏠 Inicio</Link>
+            <Link href="/registro" onClick={closeMenu} style={{ display: "block", padding: "11px 14px", color: "white", textDecoration: "none", borderRadius: "8px", marginBottom: "4px", background: "rgba(255, 255, 255, 0.05)", fontSize: "15px" }}>📝 Registro</Link>
+            <Link href="/configuracion" onClick={closeMenu} style={{ display: "block", padding: "11px 14px", color: "white", textDecoration: "none", borderRadius: "8px", marginBottom: "4px", background: "rgba(255, 255, 255, 0.05)", fontSize: "15px" }}>⚙️ Configuración</Link>
+            <Link href="/planes" onClick={closeMenu} style={{ display: "block", padding: "11px 14px", color: "white", textDecoration: "none", borderRadius: "8px", marginBottom: "4px", background: "rgba(255, 255, 255, 0.05)", fontSize: "15px" }}>💎 Planes</Link>
           </div>
 
-          {/* Sección DeFi */}
           <div style={{ marginBottom: "8px", paddingBottom: "8px", borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
-            <div style={{ fontSize: "12px", color: "#b829dd", marginBottom: "8px", fontWeight: "bold" }}>PLATAFORMA DeFi</div>
-            <Link href="/defi" onClick={() => setMenuOpen(false)} style={{ display: "block", padding: "10px 14px", color: "#00d4ff", textDecoration: "none", borderRadius: "8px", marginBottom: "4px", background: "rgba(0, 212, 255, 0.15)", fontWeight: "bold", fontSize: "15px" }}>🚀 DeFi Hub</Link>
-            <Link href="/defi/swap" onClick={() => setMenuOpen(false)} style={{ display: "block", padding: "10px 14px", color: "white", textDecoration: "none", borderRadius: "8px", marginBottom: "4px", background: "rgba(255, 255, 255, 0.05)", fontSize: "15px", paddingLeft: "28px" }}>💱 Swap</Link>
-            <Link href="/defi/stake" onClick={() => setMenuOpen(false)} style={{ display: "block", padding: "10px 14px", color: "white", textDecoration: "none", borderRadius: "8px", marginBottom: "4px", background: "rgba(255, 255, 255, 0.05)", fontSize: "15px", paddingLeft: "28px" }}>💎 Stake</Link>
-            <Link href="/defi/farm" onClick={() => setMenuOpen(false)} style={{ display: "block", padding: "10px 14px", color: "white", textDecoration: "none", borderRadius: "8px", marginBottom: "4px", background: "rgba(255, 255, 255, 0.05)", fontSize: "15px", paddingLeft: "28px" }}>🌾 Yield Farm</Link>
-            <Link href="/defi/analytics" onClick={() => setMenuOpen(false)} style={{ display: "block", padding: "10px 14px", color: "white", textDecoration: "none", borderRadius: "8px", marginBottom: "4px", background: "rgba(255, 255, 255, 0.05)", fontSize: "15px", paddingLeft: "28px" }}>📊 Analytics</Link>
+            <div style={{ fontSize: "11px", color: "#b829dd", marginBottom: "8px", fontWeight: "bold", textTransform: "uppercase" }}>Plataforma DeFi</div>
+            <Link href="/defi" onClick={closeMenu} style={{ display: "block", padding: "11px 14px", color: "#00d4ff", textDecoration: "none", borderRadius: "8px", marginBottom: "4px", background: "rgba(0, 212, 255, 0.15)", fontWeight: "bold", fontSize: "15px" }}>🚀 DeFi Hub</Link>
+            <Link href="/defi/swap" onClick={closeMenu} style={{ display: "block", padding: "11px 14px", color: "white", textDecoration: "none", borderRadius: "8px", marginBottom: "4px", background: "rgba(255, 255, 255, 0.05)", fontSize: "15px", paddingLeft: "28px" }}>💱 Swap</Link>
+            <Link href="/defi/stake" onClick={closeMenu} style={{ display: "block", padding: "11px 14px", color: "white", textDecoration: "none", borderRadius: "8px", marginBottom: "4px", background: "rgba(255, 255, 255, 0.05)", fontSize: "15px", paddingLeft: "28px" }}>💎 Stake</Link>
+            <Link href="/defi/farm" onClick={closeMenu} style={{ display: "block", padding: "11px 14px", color: "white", textDecoration: "none", borderRadius: "8px", marginBottom: "4px", background: "rgba(255, 255, 255, 0.05)", fontSize: "15px", paddingLeft: "28px" }}>🌾 Yield Farm</Link>
+            <Link href="/defi/analytics" onClick={closeMenu} style={{ display: "block", padding: "11px 14px", color: "white", textDecoration: "none", borderRadius: "8px", marginBottom: "4px", background: "rgba(255, 255, 255, 0.05)", fontSize: "15px", paddingLeft: "28px" }}>📊 Analytics</Link>
           </div>
 
-          {/* Sección Pagos y Contacto */}
           <div>
-            <div style={{ fontSize: "12px", color: "#22c55e", marginBottom: "8px", fontWeight: "bold" }}>PAGOS Y SOPORTE</div>
-            <Link href="/pago" onClick={() => setMenuOpen(false)} style={{ display: "block", padding: "10px 14px", color: "white", textDecoration: "none", borderRadius: "8px", marginBottom: "4px", background: "rgba(255, 255, 255, 0.05)", fontSize: "15px" }}>💳 Pagar con MetaMask</Link>
-            <Link href="/contacto" onClick={() => setMenuOpen(false)} style={{ display: "block", padding: "10px 14px", color: "white", textDecoration: "none", borderRadius: "8px", marginBottom: "0px", background: "rgba(255, 255, 255, 0.05)", fontSize: "15px" }}>📞 Contacto</Link>
+            <div style={{ fontSize: "11px", color: "#22c55e", marginBottom: "8px", fontWeight: "bold", textTransform: "uppercase" }}>Pagos y Soporte</div>
+            <Link href="/pago" onClick={closeMenu} style={{ display: "block", padding: "11px 14px", color: "white", textDecoration: "none", borderRadius: "8px", marginBottom: "4px", background: "rgba(255, 255, 255, 0.05)", fontSize: "15px" }}>💳 Pagar con MetaMask</Link>
+            <Link href="/contacto" onClick={closeMenu} style={{ display: "block", padding: "11px 14px", color: "white", textDecoration: "none", borderRadius: "8px", marginBottom: "0px", background: "rgba(255, 255, 255, 0.05)", fontSize: "15px" }}>📞 Contacto</Link>
           </div>
         </div>
       </div>
@@ -113,7 +124,6 @@ export default function DeFiHub() {
           {sections.map((sec) => (
             <Link key={sec.id} href={`/defi/${sec.id}`}>
               <div 
-                className="group"
                 style={{ 
                   background: "rgba(10, 14, 39, 0.65)", 
                   backdropFilter: "blur(10px)",
@@ -121,16 +131,18 @@ export default function DeFiHub() {
                   borderRadius: "20px", 
                   padding: "2rem", 
                   cursor: "pointer", 
-                  transition: "transform 0.3s, border-color 0.3s",
+                  transition: "all 0.3s",
                   height: "100%" 
                 }}
                 onMouseEnter={(e) => {
                    e.currentTarget.style.transform = "translateY(-5px)";
                    e.currentTarget.style.borderColor = sec.color;
+                   e.currentTarget.style.boxShadow = `0 10px 30px ${sec.color}33`;
                 }}
                 onMouseLeave={(e) => {
                    e.currentTarget.style.transform = "translateY(0)";
                    e.currentTarget.style.borderColor = `${sec.color}33`;
+                   e.currentTarget.style.boxShadow = "none";
                 }}
               >
                 <div style={{ fontSize: "3.5rem", marginBottom: "1rem" }}>{sec.icon}</div>

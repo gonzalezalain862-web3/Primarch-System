@@ -7,122 +7,217 @@ export default function ContactoPage() {
   const [menuOpen, setMenuOpen] = useState(false);
   
   const whatsappNumber = "584222100167";
-  const baseMessage = "Hola! Estoy interesado en Primarch System. Me gustaría más información sobre:";
+  const baseMessage = "Hola! Estoy interesado en Primarch System.";
 
   const handleWhatsAppClick = (option: string) => {
-    const fullMessage = `${baseMessage}%0A%0A- ${option}`;
+    const fullMessage = `${baseMessage}%0A%0ATema: ${option}`;
     const url = `https://wa.me/${whatsappNumber}?text=${fullMessage}`;
     window.open(url, "_blank");
   };
 
   const whatsappOptions = [
-    "Características de la plataforma",
-    "Planes y precios disponibles",
-    "Soporte técnico y troubleshooting",
-    "Integraciones y API",
-    "Otro tema"
+    { icon: "💡", text: "Características de la plataforma" },
+    { icon: "💰", text: "Planes y precios" },
+    { icon: "🔧", text: "Soporte técnico" },
+    { icon: "🔌", text: "Integraciones y API" },
+    { icon: "❓", text: "Otro tema" }
   ];
 
   return (
-    <div className="min-h-screen relative">
+    <div className="min-h-screen relative" style={{ background: "linear-gradient(135deg, #050810 0%, #0a1128 100%)" }}>
+      
       {/* Menú Hamburguesa */}
-      <nav className={`hamburger-menu ${menuOpen ? "active" : ""}`}>
+      <div style={{ position: "fixed", top: "1.5rem", right: "1.5rem", zIndex: 99999 }}>
         <button 
-          className="hamburger-button"
           onClick={() => setMenuOpen(!menuOpen)}
+          style={{
+            width: "56px", height: "56px",
+            background: "linear-gradient(135deg, #00d4ff, #b829dd)",
+            border: "none", borderRadius: "50%",
+            display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: "6px",
+            cursor: "pointer", boxShadow: "0 4px 20px rgba(0, 212, 255, 0.6)", zIndex: 100000, position: "relative"
+          }}
         >
-          <span className="hamburger-line"></span>
-          <span className="hamburger-line"></span>
-          <span className="hamburger-line"></span>
+          <span style={{ width: "24px", height: "3px", background: "white", borderRadius: "2px" }}></span>
+          <span style={{ width: "24px", height: "3px", background: "white", borderRadius: "2px" }}></span>
+          <span style={{ width: "24px", height: "3px", background: "white", borderRadius: "2px" }}></span>
         </button>
-        <div className="hamburger-dropdown">
-          <Link href="/">🏠 Inicio</Link>
-          <Link href="/registro"> Registro</Link>
-          <Link href="/configuracion">⚙️ Configuración</Link>
-          <Link href="/planes">💎 Planes</Link>
-          <Link href="/pago">💳 Pagar con MetaMask</Link>
-          <Link href="/defi">🚀 Plataforma DeFi</Link>
-          <Link href="/contacto">📞 Contacto</Link>
+
+        {menuOpen && (
+          <div onClick={() => setMenuOpen(false)} style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.6)", zIndex: 99998, backdropFilter: "blur(3px)" }} />
+        )}
+
+        <div style={{
+          position: "absolute", top: "65px", right: "0",
+          background: "rgba(10, 14, 39, 0.98)", backdropFilter: "blur(15px)",
+          border: "1px solid rgba(0, 212, 255, 0.3)", borderRadius: "16px", padding: "12px", minWidth: "260px",
+          boxShadow: "0 10px 40px rgba(0, 0, 0, 0.8)",
+          opacity: menuOpen ? "1" : "0", visibility: menuOpen ? "visible" : "hidden",
+          transform: menuOpen ? "scale(1)" : "scale(0.95)", transformOrigin: "top right",
+          transition: "all 0.25s ease-out", pointerEvents: menuOpen ? "auto" : "none", zIndex: 99999
+        }}>
+          <Link href="/" onClick={() => setMenuOpen(false)} style={{ display: "block", padding: "11px 14px", color: "white", textDecoration: "none", borderRadius: "8px", marginBottom: "4px", background: "rgba(255, 255, 255, 0.05)", fontSize: "15px" }}>🏠 Inicio</Link>
+          <Link href="/defi" onClick={() => setMenuOpen(false)} style={{ display: "block", padding: "11px 14px", color: "white", textDecoration: "none", borderRadius: "8px", marginBottom: "4px", background: "rgba(255, 255, 255, 0.05)", fontSize: "15px" }}>🚀 DeFi Hub</Link>
+          <Link href="/pago" onClick={() => setMenuOpen(false)} style={{ display: "block", padding: "11px 14px", color: "white", textDecoration: "none", borderRadius: "8px", marginBottom: "4px", background: "rgba(255, 255, 255, 0.05)", fontSize: "15px" }}>💳 Pagar</Link>
+          <Link href="/contacto" onClick={() => setMenuOpen(false)} style={{ display: "block", padding: "11px 14px", color: "#00d4ff", textDecoration: "none", borderRadius: "8px", marginBottom: "0px", background: "rgba(0, 212, 255, 0.15)", fontWeight: "bold", fontSize: "15px" }}>📞 Contacto</Link>
         </div>
-      </nav>
+      </div>
 
-      <main className="px-4 py-20 max-w-5xl mx-auto">
-        <h1 className="cyber-title text-4xl text-center mb-4">
-          CONTACTO
-        </h1>
-        <p className="cyber-subtitle text-center mb-12">
-          Nuestro equipo de soporte está disponible 24/7 para asistirte
-        </p>
+      <main className="px-4 py-20 max-w-5xl mx-auto relative z-10">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <h1 className="cyber-title text-4xl md:text-5xl mb-4" style={{ 
+            background: "linear-gradient(135deg, #00d4ff, #b829dd, #ff00ff)",
+            WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
+            filter: "drop-shadow(0 0 20px rgba(0, 212, 255, 0.6))"
+          }}>
+            CONTACTO
+          </h1>
+          <p className="cyber-subtitle" style={{ 
+            background: "rgba(255, 255, 255, 0.05)", backdropFilter: "blur(12px)",
+            border: "1px solid rgba(0, 212, 255, 0.15)", borderRadius: "16px",
+            padding: "1.2rem 1.8rem"
+          }}>
+            Nuestro equipo de soporte está disponible <span style={{ color: "#00d4ff", fontWeight: "bold" }}>24/7</span> para asistirte
+          </p>
+        </div>
 
-        <div className="grid md:grid-cols-2 gap-8 mb-12">
-          {/* Email Card */}
-          <div className="cyber-panel text-center flex flex-col items-center justify-center">
-            <div className="text-6xl mb-4 animate-pulse">📧</div>
-            <h2 className="text-2xl font-bold mb-3 text-cyan-400">Correo Electrónico</h2>
+        {/* Tarjetas de Contacto */}
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
+          
+          {/* Email */}
+          <div style={{
+            background: "rgba(10, 14, 39, 0.65)", backdropFilter: "blur(16px)",
+            border: "2px solid rgba(0, 212, 255, 0.3)", borderRadius: "20px",
+            padding: "2rem", textAlign: "center",
+            boxShadow: "0 8px 32px rgba(0, 212, 255, 0.15)",
+            transition: "all 0.3s"
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.borderColor = "#00d4ff";
+            e.currentTarget.style.boxShadow = "0 0 30px rgba(0, 212, 255, 0.4)";
+            e.currentTarget.style.transform = "translateY(-5px)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.borderColor = "rgba(0, 212, 255, 0.3)";
+            e.currentTarget.style.boxShadow = "0 8px 32px rgba(0, 212, 255, 0.15)";
+            e.currentTarget.style.transform = "translateY(0)";
+          }}>
+            <div style={{ fontSize: "4rem", marginBottom: "1rem" }}>📧</div>
+            <h2 className="text-2xl font-bold mb-3" style={{ color: "#00d4ff" }}>Correo Electrónico</h2>
             <p className="text-gray-400 mb-6 text-sm">
-              Para consultas formales o documentación técnica. 
-              Respondemos en menos de 24 horas.
+              Para consultas formales o documentación técnica. Respondemos en menos de 24 horas.
             </p>
             <a 
               href="mailto:asistent.ai213@gmail.com"
-              className="cyber-button w-full max-w-xs"
+              style={{
+                display: "inline-block", padding: "0.9rem 2rem",
+                background: "linear-gradient(135deg, #00d4ff, #0099cc)",
+                color: "white", textDecoration: "none", borderRadius: "50px",
+                fontWeight: "600", boxShadow: "0 4px 15px rgba(0, 212, 255, 0.4)",
+                transition: "all 0.3s"
+              }}
             >
               Enviar Email
             </a>
-            <div className="mt-4 text-xs text-gray-500 break-all select-all">
-              asistent.ai213@gmail.com
-            </div>
+            <p className="text-xs text-gray-500 mt-4 font-mono">asistent.ai213@gmail.com</p>
           </div>
 
-          {/* WhatsApp Card */}
-          <div className="cyber-panel text-center flex flex-col items-center justify-center border-green-500/30">
-            <div className="text-6xl mb-4"></div>
-            <h2 className="text-2xl font-bold mb-3 text-green-400">WhatsApp Directo</h2>
+          {/* WhatsApp */}
+          <div style={{
+            background: "rgba(10, 14, 39, 0.65)", backdropFilter: "blur(16px)",
+            border: "2px solid rgba(34, 197, 94, 0.3)", borderRadius: "20px",
+            padding: "2rem", textAlign: "center",
+            boxShadow: "0 8px 32px rgba(34, 197, 94, 0.15)",
+            transition: "all 0.3s"
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.borderColor = "#22c55e";
+            e.currentTarget.style.boxShadow = "0 0 30px rgba(34, 197, 94, 0.4)";
+            e.currentTarget.style.transform = "translateY(-5px)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.borderColor = "rgba(34, 197, 94, 0.3)";
+            e.currentTarget.style.boxShadow = "0 8px 32px rgba(34, 197, 94, 0.15)";
+            e.currentTarget.style.transform = "translateY(0)";
+          }}>
+            <div style={{ fontSize: "4rem", marginBottom: "1rem" }}>💬</div>
+            <h2 className="text-2xl font-bold mb-3" style={{ color: "#22c55e" }}>WhatsApp Directo</h2>
             <p className="text-gray-400 mb-6 text-sm">
-              Respuesta inmediata en horario laboral. 
-              Ideal para dudas rápidas o asistencia en tiempo real.
+              Respuesta inmediata en horario laboral. Ideal para dudas rápidas.
             </p>
             <a 
               href={`https://wa.me/${whatsappNumber}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="cyber-button w-full max-w-xs bg-gradient-to-r from-green-500 to-green-700 hover:from-green-600 hover:to-green-800"
+              style={{
+                display: "inline-block", padding: "0.9rem 2rem",
+                background: "linear-gradient(135deg, #22c55e, #16a34a)",
+                color: "white", textDecoration: "none", borderRadius: "50px",
+                fontWeight: "600", boxShadow: "0 4px 15px rgba(34, 197, 94, 0.4)",
+                transition: "all 0.3s"
+              }}
             >
               Iniciar Chat
             </a>
-            <div className="mt-4 text-xs text-gray-500">
-              +58 422-2100167
-            </div>
+            <p className="text-xs text-gray-500 mt-4 font-mono">+58 422-2100167</p>
           </div>
         </div>
 
-        {/* WhatsApp Quick Options */}
-        <div className="cyber-panel">
-          <h2 className="text-xl font-bold mb-6 text-center text-purple-400">
-             ¿Sobre qué tema necesitas ayuda?
+        {/* Opciones de WhatsApp */}
+        <div style={{
+          background: "rgba(10, 14, 39, 0.65)", backdropFilter: "blur(16px)",
+          border: "2px solid rgba(184, 41, 221, 0.3)", borderRadius: "20px",
+          padding: "2rem",
+          boxShadow: "0 8px 32px rgba(184, 41, 221, 0.15)"
+        }}>
+          <h2 className="text-2xl font-bold mb-6 text-center" style={{ 
+            background: "linear-gradient(135deg, #b829dd, #ff00ff)",
+            WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent"
+          }}>
+            💬 ¿Sobre qué tema necesitas ayuda?
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {whatsappOptions.map((option, index) => (
               <button
                 key={index}
-                onClick={() => handleWhatsAppClick(option)}
-                className="group p-4 bg-white/5 border border-white/10 rounded-xl hover:border-cyan-400 hover:bg-cyan-500/10 transition-all text-left flex items-center gap-3"
+                onClick={() => handleWhatsAppClick(option.text)}
+                style={{
+                  padding: "1rem 1.2rem",
+                  background: "rgba(255, 255, 255, 0.03)",
+                  border: `1px solid rgba(184, 41, 221, 0.2)`,
+                  borderRadius: "12px",
+                  cursor: "pointer",
+                  textAlign: "left",
+                  transition: "all 0.3s",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "12px"
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "rgba(184, 41, 221, 0.15)";
+                  e.currentTarget.style.borderColor = "#b829dd";
+                  e.currentTarget.style.transform = "translateX(5px)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "rgba(255, 255, 255, 0.03)";
+                  e.currentTarget.style.borderColor = "rgba(184, 41, 221, 0.2)";
+                  e.currentTarget.style.transform = "translateX(0)";
+                }}
               >
-                <span className="text-green-400 text-xl group-hover:scale-110 transition-transform">💬</span>
-                <span className="text-gray-300 group-hover:text-white font-medium">{option}</span>
+                <span style={{ fontSize: "1.5rem" }}>{option.icon}</span>
+                <span className="text-white text-sm">{option.text}</span>
+                <span style={{ marginLeft: "auto", color: "#b829dd" }}>→</span>
               </button>
             ))}
           </div>
-          <p className="text-center text-xs text-gray-500 mt-4">
-            Al hacer clic, se abrirá WhatsApp con el mensaje predefinido.
-          </p>
         </div>
 
-        {/* Social / Footer Info */}
-        <div className="mt-12 text-center">
+        {/* Footer */}
+        <div className="text-center mt-12 pt-8" style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}>
           <p className="text-gray-500 text-sm">
-            Primarch System © 2026 • Todos los derechos reservados • 
-            <span className="text-cyan-400 ml-1">DeFi Seguro & Descentralizado</span>
+            Primarch System © 2026 • DeFi Seguro & Descentralizado
           </p>
         </div>
       </main>
