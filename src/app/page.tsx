@@ -7,11 +7,12 @@ export default function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
+    // ✅ CLASE DE FONDO CYBER APLICADA AQUÍ:
+    <div className="min-h-screen relative overflow-hidden bg-cyber-2">
       {/* Líneas de luz animadas */}
       <div className="light-streak" style={{ top: "20%", animationDelay: "0s" }} />
-      <div className="light-streak" style={{ top: "50%", animationDelay: "2s" }} />
-      <div className="light-streak" style={{ top: "80%", animationDelay: "4s" }} />
+      <div className="light-streak" style={{ top: "50%", animationDelay: "3s" }} />
+      <div className="light-streak" style={{ top: "80%", animationDelay: "6s" }} />
 
       {/* Menú Hamburguesa */}
       <nav className={`hamburger-menu ${menuOpen ? "active" : ""}`}>
@@ -35,13 +36,15 @@ export default function HomePage() {
       </nav>
 
       {/* Contenido Principal */}
-      <main className="flex flex-col items-center justify-center min-h-screen px-4 py-20">
+      <main className="flex flex-col items-center justify-center min-h-screen px-4 py-20 relative z-10">
         {/* Título Principal */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
           <h1 className="cyber-title mb-6">
             PRIMARCH SYSTEM
           </h1>
-          <p className="cyber-subtitle max-w-3xl mx-auto">
+          
+          {/* Subtítulo con efecto cristal */}
+          <p className="cyber-subtitle">
             La próxima generación de finanzas descentralizadas. 
             Conectando el futuro de las criptomonedas con tecnología blockchain 
             de vanguardia y seguridad institucional.
@@ -116,19 +119,19 @@ export default function HomePage() {
 
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto mt-20">
-          <div className="text-center">
+          <div className="text-center cyber-panel">
             <div className="text-4xl font-bold text-cyan-400 mb-2">$50M+</div>
             <div className="text-gray-400">TVL</div>
           </div>
-          <div className="text-center">
+          <div className="text-center cyber-panel">
             <div className="text-4xl font-bold text-purple-400 mb-2">10K+</div>
             <div className="text-gray-400">Usuarios</div>
           </div>
-          <div className="text-center">
+          <div className="text-center cyber-panel">
             <div className="text-4xl font-bold text-pink-400 mb-2">15+</div>
             <div className="text-gray-400">Blockchains</div>
           </div>
-          <div className="text-center">
+          <div className="text-center cyber-panel">
             <div className="text-4xl font-bold text-cyan-400 mb-2">99.9%</div>
             <div className="text-gray-400">Uptime</div>
           </div>
