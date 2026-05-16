@@ -16,7 +16,7 @@ export default function DeFiHub() {
   return (
     <div className="min-h-screen relative" style={{ background: "linear-gradient(135deg, #050810 0%, #0a1128 100%)", overflowX: "hidden" }}>
       
-      {/* 🔧 MENÚ FLOTANTE (Z-INDEX MÁXIMO) */}
+      {/* 🔧 MENÚ HAMBURGUESA COMPLETO */}
       <div style={{ 
         position: "fixed", 
         top: "1.5rem", 
@@ -53,7 +53,7 @@ export default function DeFiHub() {
           <span style={{ width: "24px", height: "3px", background: "white", borderRadius: "2px" }}></span>
         </button>
 
-        {/* Menú Desplegable */}
+        {/* Menú Desplegable COMPLETO */}
         <div style={{
           marginTop: "10px",
           background: "rgba(10, 14, 39, 0.98)",
@@ -61,8 +61,10 @@ export default function DeFiHub() {
           WebkitBackdropFilter: "blur(15px)",
           border: "1px solid rgba(0, 212, 255, 0.3)",
           borderRadius: "16px", 
-          padding: "10px",
-          minWidth: "240px",
+          padding: "12px",
+          minWidth: "260px",
+          maxHeight: "80vh",
+          overflowY: "auto",
           boxShadow: "0 10px 40px rgba(0, 0, 0, 0.8)",
           opacity: menuOpen ? "1" : "0",
           visibility: menuOpen ? "visible" : "hidden",
@@ -72,10 +74,31 @@ export default function DeFiHub() {
           pointerEvents: menuOpen ? "auto" : "none",
           zIndex: 99998
         }}>
-          <Link href="/" style={{ display: "block", padding: "12px 16px", color: "white", textDecoration: "none", borderRadius: "10px", marginBottom: "5px", background: "rgba(255, 255, 255, 0.05)", fontSize: "16px" }}>🏠 Inicio</Link>
-          <Link href="/defi" style={{ display: "block", padding: "12px 16px", color: "#00d4ff", textDecoration: "none", borderRadius: "10px", marginBottom: "5px", background: "rgba(0, 212, 255, 0.15)", fontWeight: "bold", fontSize: "16px" }}>🚀 DeFi Hub</Link>
-          <Link href="/pago" style={{ display: "block", padding: "12px 16px", color: "white", textDecoration: "none", borderRadius: "10px", marginBottom: "5px", background: "rgba(255, 255, 255, 0.05)", fontSize: "16px" }}>💳 Pagar con MetaMask</Link>
-          <Link href="/contacto" style={{ display: "block", padding: "12px 16px", color: "white", textDecoration: "none", borderRadius: "10px", marginBottom: "0px", background: "rgba(255, 255, 255, 0.05)", fontSize: "16px" }}>📞 Contacto</Link>
+          {/* Sección Principal */}
+          <div style={{ marginBottom: "8px", paddingBottom: "8px", borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
+            <div style={{ fontSize: "12px", color: "#00d4ff", marginBottom: "8px", fontWeight: "bold" }}>PRINCIPAL</div>
+            <Link href="/" onClick={() => setMenuOpen(false)} style={{ display: "block", padding: "10px 14px", color: "white", textDecoration: "none", borderRadius: "8px", marginBottom: "4px", background: "rgba(255, 255, 255, 0.05)", fontSize: "15px" }}>🏠 Inicio</Link>
+            <Link href="/registro" onClick={() => setMenuOpen(false)} style={{ display: "block", padding: "10px 14px", color: "white", textDecoration: "none", borderRadius: "8px", marginBottom: "4px", background: "rgba(255, 255, 255, 0.05)", fontSize: "15px" }}>📝 Registro</Link>
+            <Link href="/configuracion" onClick={() => setMenuOpen(false)} style={{ display: "block", padding: "10px 14px", color: "white", textDecoration: "none", borderRadius: "8px", marginBottom: "4px", background: "rgba(255, 255, 255, 0.05)", fontSize: "15px" }}>⚙️ Configuración</Link>
+            <Link href="/planes" onClick={() => setMenuOpen(false)} style={{ display: "block", padding: "10px 14px", color: "white", textDecoration: "none", borderRadius: "8px", marginBottom: "4px", background: "rgba(255, 255, 255, 0.05)", fontSize: "15px" }}>💎 Planes</Link>
+          </div>
+
+          {/* Sección DeFi */}
+          <div style={{ marginBottom: "8px", paddingBottom: "8px", borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
+            <div style={{ fontSize: "12px", color: "#b829dd", marginBottom: "8px", fontWeight: "bold" }}>PLATAFORMA DeFi</div>
+            <Link href="/defi" onClick={() => setMenuOpen(false)} style={{ display: "block", padding: "10px 14px", color: "#00d4ff", textDecoration: "none", borderRadius: "8px", marginBottom: "4px", background: "rgba(0, 212, 255, 0.15)", fontWeight: "bold", fontSize: "15px" }}>🚀 DeFi Hub</Link>
+            <Link href="/defi/swap" onClick={() => setMenuOpen(false)} style={{ display: "block", padding: "10px 14px", color: "white", textDecoration: "none", borderRadius: "8px", marginBottom: "4px", background: "rgba(255, 255, 255, 0.05)", fontSize: "15px", paddingLeft: "28px" }}>💱 Swap</Link>
+            <Link href="/defi/stake" onClick={() => setMenuOpen(false)} style={{ display: "block", padding: "10px 14px", color: "white", textDecoration: "none", borderRadius: "8px", marginBottom: "4px", background: "rgba(255, 255, 255, 0.05)", fontSize: "15px", paddingLeft: "28px" }}>💎 Stake</Link>
+            <Link href="/defi/farm" onClick={() => setMenuOpen(false)} style={{ display: "block", padding: "10px 14px", color: "white", textDecoration: "none", borderRadius: "8px", marginBottom: "4px", background: "rgba(255, 255, 255, 0.05)", fontSize: "15px", paddingLeft: "28px" }}>🌾 Yield Farm</Link>
+            <Link href="/defi/analytics" onClick={() => setMenuOpen(false)} style={{ display: "block", padding: "10px 14px", color: "white", textDecoration: "none", borderRadius: "8px", marginBottom: "4px", background: "rgba(255, 255, 255, 0.05)", fontSize: "15px", paddingLeft: "28px" }}>📊 Analytics</Link>
+          </div>
+
+          {/* Sección Pagos y Contacto */}
+          <div>
+            <div style={{ fontSize: "12px", color: "#22c55e", marginBottom: "8px", fontWeight: "bold" }}>PAGOS Y SOPORTE</div>
+            <Link href="/pago" onClick={() => setMenuOpen(false)} style={{ display: "block", padding: "10px 14px", color: "white", textDecoration: "none", borderRadius: "8px", marginBottom: "4px", background: "rgba(255, 255, 255, 0.05)", fontSize: "15px" }}>💳 Pagar con MetaMask</Link>
+            <Link href="/contacto" onClick={() => setMenuOpen(false)} style={{ display: "block", padding: "10px 14px", color: "white", textDecoration: "none", borderRadius: "8px", marginBottom: "0px", background: "rgba(255, 255, 255, 0.05)", fontSize: "15px" }}>📞 Contacto</Link>
+          </div>
         </div>
       </div>
 
